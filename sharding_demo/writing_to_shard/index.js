@@ -1,5 +1,6 @@
 /**
- * This JS code is a demo of how sharding can be used to create a URL shortener app.
+ * This JS code is a demo of how sharding can be used to create a URL shortener app. This is not
+ * meant to be executed, but it serves as a reference when read along with the README notes.
  */
 
 const app = require("express")();
