@@ -1,3 +1,7 @@
+/**
+ * This JS code is a demo of how sharding can be used to create a URL shortener app.
+ */
+
 const app = require("express")();
 const { Client } = require("pg");
 const { ConsistentHash } = require("consistent-hash");
@@ -46,5 +50,5 @@ app.get("/", (req, res) => {});
 
 // Writing to a shard.
 app.post("/", (req, res) => {
-  const url = req.query.url;
+  const url = req.query.url; // The URL to be shortened.
 });
