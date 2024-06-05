@@ -50,14 +50,14 @@ connect();
 app.get("/", (req, res) => {});
 
 // Writing to a shard.
-app.post("/", (req, res) => {
+app.post("/", async (req, res) => {
   const url = req.query.url; // The URL to be shortened.
   const hash = crypto.createHash("sha256").update(url).digest("base64"); // get the hash of the URL.
   const urlID = hash.substring(0, 5);
 
   const server = hr.get(urlID);
 
-  clients[server].query(
+  await clients[server].query(
     `INSERT INTO URL_TABLE (URL, URL_ID) VALUES (${url}, ${urlID})`
   );
 
