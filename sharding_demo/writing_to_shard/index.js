@@ -47,7 +47,9 @@ async function connect() {
 connect();
 
 // Reading from a shard.
-app.get("/", (req, res) => {});
+app.get("/", (req, res) => {
+  res.send("");
+});
 
 // Writing to a shard.
 app.post("/", async (req, res) => {
@@ -57,9 +59,14 @@ app.post("/", async (req, res) => {
 
   const server = hr.get(urlID);
 
-  await clients[server].query(
-    `INSERT INTO URL_TABLE (URL, URL_ID) VALUES (${url}, ${urlID})`
-  );
+  try {
+    await clients[server].query(
+      "INSERT INTO URL_TABLE (URL, URL_ID) VALUES ($1, $2)",
+      [url, urlID]
+    );
+  } catch (e) {
+    console.log(e);
+  }
 
   res.send({
     urlID,
