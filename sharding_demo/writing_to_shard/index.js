@@ -26,9 +26,9 @@ const clients = {
 };
 
 async function connect() {
-    clients[5432].connect();
-    clients[5433].connect();
-    clients[5434].connect();
+    await clients[5432].connect();
+    await clients[5433].connect();
+    await clients[5434].connect();
 }
 
 connect();
