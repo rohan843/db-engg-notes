@@ -47,10 +47,15 @@ async function connect() {
 connect();
 
 // Reading from a shard.
-app.get("/", (req, res) => {});
+// app.get("/", (req, res) => {});
 
 // Writing to a shard.
-app.post("/", (req, res) => {
+app.get("/", (req, res) => {
   const url = req.query.url; // The URL to be shortened.
-  crypto.createHash("sha256").update(url).digest("base64");
+  const hash = crypto.createHash("sha256").update(url).digest("base64"); // get the hash of the URL.
+  console.log(hash);
 });
+
+app.listen(8081, () => {
+    console.log("Server started on port 8081.");
+})
