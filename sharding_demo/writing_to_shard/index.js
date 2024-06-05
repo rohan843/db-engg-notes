@@ -2,7 +2,11 @@ const app = require("express")();
 const { Client } = require("pg");
 const { ConsistentHash } = require("consistent-hash");
 
+// Creates a hash ring with 3 nodes
 const hr = new ConsistentHash();
+hr.add(5432);
+hr.add(5433);
+hr.add(5434);
 
 const clients = {
   5432: new Client({
