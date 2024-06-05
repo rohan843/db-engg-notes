@@ -52,4 +52,5 @@ app.get("/", (req, res) => {});
 // Writing to a shard.
 app.post("/", (req, res) => {
   const url = req.query.url; // The URL to be shortened.
+  crypto.createHash("sha256").update(url).digest("base64");
 });
