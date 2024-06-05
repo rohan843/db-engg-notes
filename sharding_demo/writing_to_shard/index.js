@@ -1,6 +1,7 @@
 const app = require("express")();
 const { Client } = require("pg");
 const { ConsistentHash } = require("consistent-hash");
+const crypto = require("crypto");
 
 // Creates a hash ring with 3 nodes
 const hr = new ConsistentHash();
