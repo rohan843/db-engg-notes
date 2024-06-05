@@ -47,13 +47,12 @@ async function connect() {
 connect();
 
 // Reading from a shard.
-// app.get("/", (req, res) => {});
+app.get("/", (req, res) => {});
 
 // Writing to a shard.
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
   const url = req.query.url; // The URL to be shortened.
   const hash = crypto.createHash("sha256").update(url).digest("base64"); // get the hash of the URL.
-  console.log(hash);
 });
 
 app.listen(8081, () => {
