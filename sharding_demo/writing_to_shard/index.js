@@ -1,5 +1,8 @@
 const app = require("express")();
 const { Client } = require("pg");
+const { ConsistentHash } = require("consistent-hash");
+
+const hr = new ConsistentHash();
 
 const clients = {
   5432: new Client({
@@ -26,9 +29,9 @@ const clients = {
 };
 
 async function connect() {
-    await clients[5432].connect();
-    await clients[5433].connect();
-    await clients[5434].connect();
+  await clients[5432].connect();
+  await clients[5433].connect();
+  await clients[5434].connect();
 }
 
 connect();
