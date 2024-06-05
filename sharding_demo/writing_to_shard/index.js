@@ -57,6 +57,10 @@ app.post("/", (req, res) => {
 
   const server = hr.get(urlID);
 
+  clients[server].query(
+    `INSERT INTO URL_TABLE (URL, URL_ID) VALUES (${url}, ${urlID})`
+  );
+
   res.send({
     urlID,
     url,
