@@ -53,6 +53,10 @@ app.get("/", (req, res) => {});
 app.post("/", (req, res) => {
   const url = req.query.url; // The URL to be shortened.
   const hash = crypto.createHash("sha256").update(url).digest("base64"); // get the hash of the URL.
+  const urlID = hash.substring(0, 5);
+  res.send({
+    urlID,
+  });
 });
 
 app.listen(8081, () => {
