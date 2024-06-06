@@ -10,9 +10,9 @@ const crypto = require("crypto");
 
 // Creates a hash ring with 3 nodes
 const hr = new HashRing();
-hr.add(5432);
-hr.add(5433);
-hr.add(5434);
+hr.add("5432");
+hr.add("5433");
+hr.add("5434");
 
 const clients = {
   5432: new Client({
@@ -40,9 +40,9 @@ const clients = {
 
 // Connecting to shards.
 async function connect() {
-  await clients[5432].connect();
-  await clients[5433].connect();
-  await clients[5434].connect();
+  await clients["5432"].connect();
+  await clients["5433"].connect();
+  await clients["5434"].connect();
 }
 connect();
 
@@ -59,7 +59,7 @@ app.get("/:urlID", async (req, res) => {
   if (results.rowCount > 0) {
     res.send({
       urlID,
-      url,
+      url: results.rows[0],
       server,
     });
   } else {
