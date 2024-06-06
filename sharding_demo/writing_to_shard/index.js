@@ -5,11 +5,11 @@
 
 const app = require("express")();
 const { Client } = require("pg");
-const ConsistentHash = require("consistent-hash");
+const HashRing = require("hashring");
 const crypto = require("crypto");
 
 // Creates a hash ring with 3 nodes
-const hr = new ConsistentHash();
+const hr = new HashRing();
 hr.add(5432);
 hr.add(5433);
 hr.add(5434);
@@ -47,8 +47,24 @@ async function connect() {
 connect();
 
 // Reading from a shard.
-app.get("/", (req, res) => {
-  res.send("");
+app.get("/:urlID", async (req, res) => {
+  const urlID = req.params.urlID;
+  const server = hr.get(urlID);
+
+  const results = await clients[server].query(
+    "SELECT * FROM URL_TABLE WHERE URL_ID = $1",
+    [urlID]
+  );
+
+  if (results.rowCount > 0) {
+    res.send({
+      urlID,
+      url,
+      server,
+    });
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 // Writing to a shard.
